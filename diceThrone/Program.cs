@@ -1,9 +1,12 @@
 ﻿using diceThrone;
 
-List<Character> allCharacters = new List<Character>();
-List<Character> selectionList = new List<Character>();
-List<Character> filteredList = new List<Character>();
+/* 
+ * Creating the character list
+ * Creating the characters
+ * adding the characters to one list
+ */
 
+List<Character> allCharacters = new List<Character>();
 
 //Season One Characters
 Character Barbarian = new("Barbarian", "1", 1);
@@ -114,18 +117,28 @@ allCharacters.Add(SantaClaus);
 Character Krampus = new("Krampus", "Extra", 4);
 allCharacters.Add(Krampus);
 
-int selectionNumber = getListSelection();
+/*
+ * Program Functionality
+ * Program flow:
+ * Characters are created and added to the list
+ * User needs to be asked how they want to filter
+ * User's response dictates which function is ran
+ */
+Operations op = new();
 
+List<Character> filteredList = new List<Character>();
+string selectionNumber = op.getListSelection();
 
-
-if(selectionNumber == 1)
+//Make a function for making a season selection list
+if (selectionNumber == "1")
 {
-    filteredList = makeSeasonList(allCharacters);
+    filteredList = op.makeSeasonList(allCharacters);
 }
 
-else if (selectionNumber == 2)
+//make a funtion for making a character complexity list
+else if (selectionNumber == "2")
 {
-    filteredList = makeComplexityList(allCharacters);
+    filteredList = op.makeComplexityList(allCharacters);
 }
 
 foreach (Character character in filteredList)
@@ -138,40 +151,3 @@ foreach (Character character in filteredList)
  * the input AND the season of the characters are compared with toLower()
  * the characters that matche the filtering desires are added to the list that gets returned
  */
-static List<Character> makeSeasonList(List<Character> characters)
-{
-    List<Character> filteredList = new List<Character>();
-    Console.WriteLine("Which season's characters would you like to play?");
-    string seasonNumber = Console.ReadLine().ToLower();
-    
-
-    foreach (Character c in characters)
-    {
-        if (c.Season.ToLower() == seasonNumber) filteredList.Add(c);
-    }
-
-    return filteredList;
-}
-
-static List<Character> makeComplexityList(List<Character> characters)
-{
-    List<Character> filteredList = new List<Character>();
-    Console.WriteLine("Which complexity level would you like to play?");
-    string input = Console.ReadLine();
-    int complexityNumber = int.Parse(input);
-
-    foreach (Character c in characters)
-    {
-        if (c.Complexity == complexityNumber) filteredList.Add(c);
-    }
-
-    return filteredList;
-}
-
-static int getListSelection()
-{
-    Console.WriteLine("How would you like to filter your selection? \n1. Season\n2. Complexity ");
-    string input = Console.ReadLine();
-    int selectionNumber = int.Parse(input);
-    return selectionNumber;
-}
