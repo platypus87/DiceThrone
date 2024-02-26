@@ -117,37 +117,31 @@ allCharacters.Add(SantaClaus);
 Character Krampus = new("Krampus", "Extra", 4);
 allCharacters.Add(Krampus);
 
-/*
- * Program Functionality
- * Program flow:
- * Characters are created and added to the list
- * User needs to be asked how they want to filter
- * User's response dictates which function is ran
- */
+
 Operations op = new();
 
-List<Character> filteredList = new List<Character>();
-string selectionNumber = op.getListSelection();
-
-//Make a function for making a season selection list
-if (selectionNumber == "1")
+while (true)
 {
-    filteredList = op.makeSeasonList(allCharacters);
-}
+    op.printMenu();
+    int selection = op.getSelection();
 
-//make a funtion for making a character complexity list
-else if (selectionNumber == "2")
-{
-    filteredList = op.makeComplexityList(allCharacters);
+    if (selection == 1)
+    {
+        foreach (Character c in allCharacters) { Console.WriteLine(c.ToString()); };
+    }
+    else if (selection == 2)
+    {
+        List<Character> seasonList = new List<Character>(op.makeSeasonList(allCharacters));
+        foreach (Character c in seasonList) { Console.WriteLine(c.ToString()); };
+    }
+    else if (selection == 3)
+    {
+        List<Character> complexityList = new List<Character>(op.makeComplexityList(allCharacters));
+        foreach (Character c in complexityList) { Console.WriteLine(c.ToString()); };
+    }
+    else if (selection == 4)
+    {
+        op.getRandomCharacter(allCharacters);
+    }
+    else if (selection == 5) { break; }
 }
-
-foreach (Character character in filteredList)
-{
-    Console.WriteLine(character.ToString());
-}
-
-/**
- * makeList takes the input of the user as a string and the list of all the characters as parameters
- * the input AND the season of the characters are compared with toLower()
- * the characters that matche the filtering desires are added to the list that gets returned
- */
